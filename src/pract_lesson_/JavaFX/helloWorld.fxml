@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.GridPane?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="pract_lesson_.JavaFX.HelloWorld"
+          fx:controller="pract_lesson_.JavaFX.Controller"
           alignment="center" hgap="10" vgap="10">
+    <TextField fx:id="textField" GridPane.rowIndex="0" GridPane.columnIndex="0" onKeyReleased="#handleKeyPress" />
+    <Button fx:id="hiButton" text="Hi Button" GridPane.rowIndex="1" GridPane.columnIndex="0" onAction="#onButtonClick"/>
+    <Button fx:id="byeButton" text="Bye Button" GridPane.rowIndex="1" GridPane.columnIndex="1" onAction="#onButtonClick"/>
+    <Label fx:id="threadLabel" text="I'm before thread start" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
 </GridPane>
