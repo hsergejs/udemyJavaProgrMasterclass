@@ -3,15 +3,16 @@ package pract_lesson_.JavaFXToDoList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import pract_lesson_.JavaFXToDoList.dataModel.ToDoDataSignletonClass;
 import pract_lesson_.JavaFXToDoList.dataModel.ToDoItem;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 public class Controller {
     private List<ToDoItem> toDoItem;
@@ -21,6 +22,8 @@ public class Controller {
     private TextArea toDoDetails;
     @FXML
     private Label dueDate;
+    @FXML
+    private BorderPane mainWindowBorderPane;
 
     public void initialize(){
 //        toDoItem = new ArrayList<>();
@@ -58,6 +61,49 @@ public class Controller {
         toDoListView.getSelectionModel().selectFirst();
     }
 
+    @FXML
+    public void showDialogNewItem(){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainWindowBorderPane.getScene().getWindow());
+        //setting title programmatically
+        dialog.setTitle("Create new ToDo'ish");
+        //start of split approach to load dialog
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("toDoDialog.fxml"));
+        try{
+            //to get data from dialog pane, use split load approach
+//            Parent root = FXMLLoader.load(getClass().getResource("toDoDialog.fxml"));
+//            dialog.getDialogPane().setContent(root);
+            //use to load dialog
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        }
+        catch(IOException e){
+            System.out.println("Couldn't load the dialog window!");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> resultButtonPress = dialog.showAndWait();
+        if(resultButtonPress.isPresent() && resultButtonPress.get() == ButtonType.OK){
+            //getting toDoDialogController
+            DialoController dialogController = fxmlLoader.getController();
+            //load data from form
+            //new return new ToDoItem
+            ToDoItem newItem = dialogController.getDataInput();
+            //hardcoded scene update, reload list of items
+            populateListView();
+            //highlight newly added item, so it will show up after adding item on the screen
+            //select last item
+            toDoListView.getSelectionModel().select(newItem);
+        }
+        else{
+            System.out.println("Cancel");
+        }
+    }
+    
     private void populateListView(){
         //set data from singleton class
         toDoListView.getItems().setAll(ToDoDataSignletonClass.getInstance().getItems());

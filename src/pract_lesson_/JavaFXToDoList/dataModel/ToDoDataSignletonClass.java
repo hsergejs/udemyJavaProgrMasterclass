@@ -32,6 +32,14 @@ public class ToDoDataSignletonClass {
         return items;
     }
 
+    public List<ToDoItem> getToDoItemList(){
+        return this.items;
+    }
+
+    public void addData(ToDoItem item){
+        items.add(item);
+    }
+
       //required only to set data once from hardcoded part
 //    public void setItems(List<ToDoItem> items) {
 //        this.items = items;
