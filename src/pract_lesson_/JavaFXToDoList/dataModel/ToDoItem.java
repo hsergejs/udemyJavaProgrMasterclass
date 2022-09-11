@@ -37,8 +37,9 @@ public class ToDoItem {
         this.dueDate = dueDate;
     }
 
-    @Override
-    public String toString() {
-        return this.description;
-    }
+    //since cellFactory is implemented
+//    @Override
+//    public String toString() {
+//        return this.description;
+//    }
 }

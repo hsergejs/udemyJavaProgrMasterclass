@@ -1,6 +1,7 @@
 package pract_lesson_.JavaFXToDoList.dataModel;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +18,9 @@ public class ToDoDataSignletonClass {
     private static ToDoDataSignletonClass instance = new ToDoDataSignletonClass();
     private static String filename = "src/pract_lesson_/JavaFXToDoList/data/ToDoItems.txt";
 
-    private List<ToDoItem> items;
+    //moving to observable to use data binding and update scene automatically
+    //private List<ToDoItem> items;
+    private ObservableList items;
     private DateTimeFormatter dtf;
 
     public static ToDoDataSignletonClass getInstance(){
@@ -32,7 +35,12 @@ public class ToDoDataSignletonClass {
         return items;
     }
 
-    public List<ToDoItem> getToDoItemList(){
+    //changed to observable to use data binding
+//    public List<ToDoItem> getToDoItemList(){
+//        return this.items;
+//    }
+
+    public ObservableList<ToDoItem> getToDoItemList(){
         return this.items;
     }
 
@@ -47,6 +55,7 @@ public class ToDoDataSignletonClass {
 
     public void loadDataToListFromFile() throws Exception {
         //required by javaFX framework as we use in populateListView() setAll()
+        //also FXCollections is a copy of the java.utils but optimized to call less gui updates
         items = FXCollections.observableArrayList();
         Path path = Paths.get(filename);
         BufferedReader br = Files.newBufferedReader(path);
@@ -91,5 +100,9 @@ public class ToDoDataSignletonClass {
                 bwr.close();
             }
         }
+    }
+
+    public void deleteItem(ToDoItem item){
+        items.remove(item);
     }
 }
