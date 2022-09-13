@@ -7,6 +7,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -130,7 +132,7 @@ public class Controller {
         dialog.initOwner(mainWindowBorderPane.getScene().getWindow());
         //setting title programmatically
         dialog.setTitle("Create new ToDo'ish");
-        //start of split approach to load dialog
+        //split approach to load dialog
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("toDoDialog.fxml"));
         try{
@@ -195,6 +197,16 @@ public class Controller {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get().equals(ButtonType.OK)){
             ToDoDataSignletonClass.getInstance().deleteItem(toDoItem);
+        }
+    }
+
+    @FXML
+    public void handleKeyPressListView(KeyEvent keyEvent){
+        ToDoItem item = toDoListView.getSelectionModel().getSelectedItem();
+        if(item != null){
+            if(keyEvent.getCode().equals(KeyCode.DELETE)){
+                deleteItem(item);
+            }
         }
     }
 }
