@@ -1,7 +1,11 @@
 package pract_lesson_.JavaFXToDoList;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,11 +22,13 @@ import pract_lesson_.JavaFXToDoList.dataModel.ToDoItem;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Controller {
-    private List<ToDoItem> toDoItem;
+    //as we moved observable in singleton class and load data there
+    //private List<ToDoItem> toDoItem;
     @FXML
     private ListView<ToDoItem> toDoListView;
     @FXML
@@ -33,6 +39,12 @@ public class Controller {
     private BorderPane mainWindowBorderPane;
     @FXML
     private ContextMenu contextMenu;
+    @FXML
+    private ToggleButton filterToggleButton;
+
+    private FilteredList<ToDoItem> filteredList;
+    private Predicate<ToDoItem> showAllItemsPredicate;
+    private Predicate<ToDoItem> showTodaysItemsPredicate;
 
     public void initialize(){
 //        toDoItem = new ArrayList<>();
@@ -77,9 +89,46 @@ public class Controller {
                 }
             }
         });
+
+        //enhanced version, to exclude return true for the test, didn't pass the test to be included in the list
+        showAllItemsPredicate = new Predicate<ToDoItem>() {
+            @Override
+            public boolean test(ToDoItem toDoItem) {
+                return true;
+            }
+        };
+
+        showTodaysItemsPredicate = new Predicate<ToDoItem>() {
+            @Override
+            public boolean test(ToDoItem toDoItem) {
+                return toDoItem.getDueDate().equals(LocalDate.now());
+            }
+        };
+
+        //old version, before enhancment
+//        filteredList = new FilteredList<>(ToDoDataSignletonClass.getInstance().getToDoItemList(), new Predicate<ToDoItem>() {
+//            @Override
+//            public boolean test(ToDoItem toDoItem) {
+//                //show all items return true on load, are excluded from list, other words didn't pass the test
+//                return true;
+//            }
+//        });
+
+        //enhanced version
+        filteredList = new FilteredList<>(ToDoDataSignletonClass.getInstance().getToDoItemList(),showAllItemsPredicate);
+
+        //changed to filtered list
+        SortedList<ToDoItem> sortedList = new SortedList<>(filteredList, new Comparator<ToDoItem>(){
+            @Override
+            public int compare(ToDoItem o1, ToDoItem o2) {
+                return o1.getDueDate().compareTo(o2.getDueDate());
+            }
+        });
+
         //set to single selection of item in listView
         toDoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        populateListView();
+        //method changed to add sorted and unsorted ObservableList
+        populateListView(sortedList);
         //to select and further display first item in list on load
         toDoListView.getSelectionModel().selectFirst();
         //generate cellFactory to change colors in cells, since we called cellFactory, no need in overriding
@@ -169,11 +218,13 @@ public class Controller {
         }
     }
     
-    private void populateListView(){
+    private void populateListView(ObservableList<ToDoItem> list){
         //set data from singleton class and moved to observable
         //toDoListView.getItems().setAll(ToDoDataSignletonClass.getInstance().getItems());
         //toDoListView.getItems().setAll(toDoItem);
-        toDoListView.setItems(ToDoDataSignletonClass.getInstance().getToDoItemList());
+        //changed to sortedList, to sort by deadline
+        //toDoListView.setItems(ToDoDataSignletonClass.getInstance().getToDoItemList());
+        toDoListView.setItems(list);
     }
 
     @FXML
@@ -208,5 +259,55 @@ public class Controller {
                 deleteItem(item);
             }
         }
+    }
+
+    @FXML
+    public void filterToggleButtonOnAction(){
+        //as first item not selecting after changing back to fullp list
+        ToDoItem selectedItem = toDoListView.getSelectionModel().getSelectedItem();
+
+        //to enhance code as each time new instance of predicate is created,
+        // we create private fields of type Predicate and init them in initialize method
+        //and use this Predicate instances accordingly
+        if(filterToggleButton.isSelected()){
+            //if button pressed, show filtered items
+
+//            filteredList.setPredicate(new Predicate<ToDoItem>() {
+//                @Override
+//                public boolean test(ToDoItem toDoItem) {
+//                    //sort by today's date
+//                    return toDoItem.getDueDate().equals(LocalDate.now());
+//                }
+//            });
+
+            filteredList.setPredicate(showTodaysItemsPredicate);
+            if(filteredList.isEmpty()){
+                toDoDetails.clear();
+                dueDate.setText("");
+            }
+            else if(filteredList.contains(selectedItem)){
+                toDoListView.getSelectionModel().select(selectedItem);
+            }
+            else{
+                toDoListView.getSelectionModel().selectFirst();
+            }
+        }
+        else{
+            //if button unpressed show all
+
+//            filteredList.setPredicate(new Predicate<ToDoItem>() {
+//                @Override
+//                public boolean test(ToDoItem toDoItem) {
+//                    return true;
+//                }
+//            });
+
+            filteredList.setPredicate(showAllItemsPredicate);
+        }
+    }
+
+    @FXML
+    public void exitOnAction(){
+        Platform.exit();
     }
 }
