@@ -1,4 +1,4 @@
-package pract_lesson_.JavaFXFurther;
+package pract_lesson_.JavaFXCSS;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +15,8 @@ public class JavaFXApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("javaFXApplication.fxml"));
+        //setting another theme
+        setUserAgentStylesheet(STYLESHEET_CASPIAN);
         primaryStage.setTitle("Window title");
         primaryStage.setScene(new Scene(root, 600, 250));
         primaryStage.show();
