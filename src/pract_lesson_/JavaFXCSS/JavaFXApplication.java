@@ -21,5 +21,6 @@ public class JavaFXApplication extends Application {
         primaryStage.setScene(new Scene(root, 600, 250));
         primaryStage.show();
     }
+
 }
 
