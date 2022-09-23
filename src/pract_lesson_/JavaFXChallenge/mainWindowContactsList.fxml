@@ -11,6 +11,9 @@
 <BorderPane fx:id="mainBorderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pract_lesson_.JavaFXChallenge.Controller">
    <center>
       <TableView fx:id="contactsTable" BorderPane.alignment="CENTER">
+          <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
         <columns>
             <TableColumn text="First Name">
                 <cellValueFactory>
@@ -48,7 +51,10 @@
                 <MenuItem mnemonicParsing="false" onAction="#showAddContactDialog" text="Add contact" />
             </items>
             <items>
-                <MenuItem mnemonicParsing="false" text="Edit contact" />
+                <MenuItem mnemonicParsing="false" text="Edit contact" onAction="#showEditContactDialog" />
+            </items>
+            <items>
+                <MenuItem mnemonicParsing="false" text="Delete contact" onAction="#deleteContactOnAction" />
             </items>
           </Menu>
         </menus>

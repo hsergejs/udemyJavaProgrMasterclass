@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contacts>
+<contact>
+	<first_name>Ekaterina</first_name>
+	<last_name>Kan</last_name>
+	<phone_number>+37120126345</phone_number>
+	<notes>new notes for Ekaterina</notes>
+</contact>
+<contact>
+	<first_name>Sergej</first_name>
+	<last_name>Holostov</last_name>
+	<phone_number>+37120126346</phone_number>
+	<notes>some notes here</notes>
+</contact>
+</contacts>

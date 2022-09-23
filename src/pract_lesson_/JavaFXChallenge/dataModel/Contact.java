@@ -6,7 +6,7 @@ public class Contact {
     //setting not to String but SimpleStringProperty
     //using cellValueFactory for TableView and setting same names for PropertyValueFactory
     //to use data binding in TableView and update table automatically
-
+    //if opened in SceneBuilder cellFactories are removed for some reason
     private SimpleStringProperty firstName = new SimpleStringProperty("");
     private SimpleStringProperty lastName = new SimpleStringProperty("");
     private SimpleStringProperty phoneNumber = new SimpleStringProperty("");
