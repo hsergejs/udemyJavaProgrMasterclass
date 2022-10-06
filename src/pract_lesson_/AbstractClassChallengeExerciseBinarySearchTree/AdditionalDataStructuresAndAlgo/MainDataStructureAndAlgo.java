@@ -11,5 +11,12 @@ public class MainDataStructureAndAlgo {
         numbers.print();
         System.out.println("Index of number in array: " + numbers.indexOf(30));
 
+        System.out.println("******************************");
+
+        var linkedList = new Linkedlist();
+        linkedList.addLast(10);
+        linkedList.addLast(20);
+        linkedList.addLast(30);
+        System.out.println("Index of number in linked list: " + linkedList.indexOf(30));
     }
 }
