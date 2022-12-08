@@ -30,5 +30,10 @@ public class InsertionSortingAlgorithm {
     }
 
     //another example
-
+    //split array on sorted and unsorted parts, we start from index 1, considering left side is sorted and right
+    //is unsorted, take values from unsorted right and compare it in left and inserting depending on comparison
+    //left side will grow and right will shrink
+    //in left side we compare each element in move it to appropriate position based on comparison until it reaches
+    // the lowest value place, shifting (in the left side) to the beginning of array, but higher vales to the right
+    // distinguishing logic - shifting and inserting elements for this algo
 }
