@@ -56,7 +56,7 @@ public class DayOfTheWeekChallenge {
             case 6 -> "Sunday";
             case 7 -> "Saturday";
             default -> { //use code block if required manipulations
-                System.out.println("Invalid");
+                System.out.println("Invalid day");
                 yield "Invalid day";
             }
         };
