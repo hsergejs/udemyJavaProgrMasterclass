@@ -447,6 +447,8 @@ public class Main {
 //        stockList.get("car").adjustStock(-1000);
 //        System.out.println(stockList);
 
+//        UserInputChallenge userInputChallenge = new UserInputChallenge();
+//        System.out.println("Sum of 5 numbers is: " + userInputChallenge.readUserInput());
 
 
 
