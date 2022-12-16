@@ -450,6 +450,9 @@ public class Main {
 //        UserInputChallenge userInputChallenge = new UserInputChallenge();
 //        System.out.println("Sum of 5 numbers is: " + userInputChallenge.readUserInput());
 
+        MinMaxChallenge minMaxChallenge = new MinMaxChallenge();
+        minMaxChallenge.minMaxNumber();
+
 
 
 
