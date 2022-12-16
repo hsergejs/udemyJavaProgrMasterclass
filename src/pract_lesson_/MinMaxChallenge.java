@@ -29,6 +29,7 @@ public class MinMaxChallenge {
                 loopCount++;
             }
             catch(NumberFormatException e){
+                //quit
                 break;
             }
         }
