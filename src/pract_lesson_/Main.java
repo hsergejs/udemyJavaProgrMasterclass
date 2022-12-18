@@ -1,6 +1,10 @@
 package pract_lesson_;
 
 
+import pract_lesson_.InheritanceChallenge.HourlyEmployee;
+import pract_lesson_.InheritanceChallenge.SalariedEmployee;
+import pract_lesson_.InheritanceChallenge.Worker;
+
 public class Main {
     public static void main(String[] args) {
 //        LeapYearCalcExercise leapYear = new LeapYearCalcExercise();
@@ -101,6 +105,32 @@ public class Main {
 //        mitsubishi.startEngine();
 //        mitsubishi.accelerate();
 //        mitsubishi.brake();
+
+        Worker serge = new Worker("Serge","12/12/1985");
+        System.out.println(serge);
+        System.out.println("Serge age is: " + serge.getAge());
+        System.out.println("*******************");
+
+        SalariedEmployee katy = new SalariedEmployee("Kate", "10/10/1988", "01/01/2016",
+                12000.00);
+        System.out.println("Katy paycheck: " + katy.collectPay());
+        katy.retire();
+        System.out.println("Katy retired paycheck: " + katy.collectPay());
+        System.out.println(katy);
+        System.out.println("*******************");
+
+        SalariedEmployee vanessa = new SalariedEmployee("Vanessa", "10/10/1988", "01/01/2016",
+                12000.00);
+        System.out.println(vanessa);
+        System.out.println("Vanessa paycheck: " + vanessa.collectPay());
+        System.out.println("*******************");
+
+        HourlyEmployee glory = new HourlyEmployee("Glory", "16/16/2000", "05/05/2005",
+                5);
+        System.out.println(glory);
+        System.out.println("Glory payment per week: " + glory.collectPay());
+        System.out.println("Glory's double payment: " + glory.getDoublePay());
+        System.out.println("Glory age: " + glory.getAge());
 
 //        Hamburger hamburger = new Hamburger("Basic", "Sausage", 3.56, "White");
 //        hamburger.addHamburgerAddition1("Tomato", 0.27);
@@ -450,8 +480,8 @@ public class Main {
 //        UserInputChallenge userInputChallenge = new UserInputChallenge();
 //        System.out.println("Sum of 5 numbers is: " + userInputChallenge.readUserInput());
 
-        MinMaxChallenge minMaxChallenge = new MinMaxChallenge();
-        minMaxChallenge.minMaxNumber();
+//        MinMaxChallenge minMaxChallenge = new MinMaxChallenge();
+//        minMaxChallenge.minMaxNumber();
 
 
 
