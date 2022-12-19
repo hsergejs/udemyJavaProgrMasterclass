@@ -484,8 +484,21 @@ public class Main {
 //        System.out.println(recordTypeClassExample);
 //        System.out.println("Student name: " + recordTypeClassExample.name());
 
-        TextBlockExample textBlockExample = new TextBlockExample();
-        textBlockExample.printTextBlock();
+//        TextBlockExample textBlockExample = new TextBlockExample();
+//        textBlockExample.printTextBlock();
+
+//        SmartKitchen smartKitchen = new SmartKitchen();
+//
+//        smartKitchen.getCoffeeMaker().setHasWorkToDo(true);
+//        smartKitchen.getDishWasher().setHasWorkToDo(true);
+//        smartKitchen.getRefrigerator().orderFood();
+//        smartKitchen.getDishWasher().doDishes();
+//        smartKitchen.getCoffeeMaker().brewCoffee();
+//
+//        System.out.println("-".repeat(20));
+//        smartKitchen.setKitchenState(true,true,true);
+//        smartKitchen.doKitchenWork();
+
 
     }
 }
