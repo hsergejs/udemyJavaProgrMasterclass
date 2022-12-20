@@ -102,6 +102,17 @@ public class Main {
 //        mitsubishi.accelerate();
 //        mitsubishi.brake();
 
+//        NewCar newCar = new NewCar("Base NewCar");
+//        newCar.startEngine();
+//        newCar.drive();
+//        NewCar hybridCar = new HybridCar("HybridCar",15.5,6);
+//        hybridCar.startEngine();
+//        hybridCar.drive();
+//        NewCar electricCar = new ElectricCar("ElectricCar",635,70);
+//        electricCar.startEngine();
+//        electricCar.drive();
+
+
 //        Worker serge = new Worker("Serge","12/12/1985");
 //        System.out.println(serge);
 //        System.out.println("Serge age is: " + serge.getAge());
