@@ -27,26 +27,29 @@ public class MainBillsBurger {
                     System.out.printf("Your order total is: %.2f",orderItem.getOrderTotal());
                     System.out.println("\n".repeat(1));
                 }
-                else if(menuChoice == 3){
+                else if(menuChoice == 2 || menuChoice == 3){
                     System.out.println("Please choose your drink: ");
                     printChoiceMenu(drinkList);
-                    menuChoice = Integer.parseInt(scanner.nextLine());
-                    if(menuChoice > 0 && menuChoice <= drinkList.size()){
-                        Drink drink = new Drink(drinkList.get(menuChoice).size(),
-                                drinkList.get(menuChoice).price());
+                    int subMenuChoice = Integer.parseInt(scanner.nextLine());
+                    if(subMenuChoice > 0 && subMenuChoice <= drinkList.size()){
+                        Drink drink = new Drink(drinkList.get(subMenuChoice).size(),
+                                drinkList.get(subMenuChoice).price());
 
                         System.out.println("Please choose your side item: ");
                         printChoiceMenu(sideItemList);
-                        menuChoice = Integer.parseInt(scanner.nextLine());
-                        if(menuChoice > 0 && menuChoice <= sideItemList.size()){
-                            SideItem sideItem = new SideItem(sideItemList.get(menuChoice).name(),
-                                    sideItemList.get(menuChoice).price());
+                        subMenuChoice = Integer.parseInt(scanner.nextLine());
+                        if(subMenuChoice > 0 && subMenuChoice <= sideItemList.size()){
+                            SideItem sideItem = new SideItem(sideItemList.get(subMenuChoice).name(),
+                                    sideItemList.get(subMenuChoice).price());
 
-                                OrderItem orderItem = new OrderItem(drink,sideItem);
+                            OrderItem orderItem = (menuChoice == 2) ? new OrderItem(sideItem,drink) :
+                                    (menuChoice == 3) ? new OrderItem(drink,sideItem) : null;
+
+                            int toppingsCount = (menuChoice == 2) ? 5 : (menuChoice == 3) ? 3 : 0;
 
                             System.out.println("Please choose your toppings: ");
                             printChoiceMenu(toppingList);
-                            orderItem.addToppingItem(toppingList,3);
+                            orderItem.addToppingItem(toppingList,toppingsCount);
                             orderItem.showOrder();
                             System.out.printf("Your order total is: %.2f",orderItem.getOrderTotal());
                             System.out.println("\n".repeat(1));
@@ -58,9 +61,10 @@ public class MainBillsBurger {
                     else{
                         System.out.println("Not in menu, try again!");
                     }
-
                 }
-
+                else{
+                    System.out.println("Not in menu, try again!");
+                }
 
             }
             catch(NumberFormatException e){
