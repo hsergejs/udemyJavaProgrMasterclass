@@ -58,6 +58,12 @@ class Burger {
     public ArrayList<Topping> getToppings() {
         return toppings;
     }
+
+    public void printToppings(){
+        for(Topping topping : toppings){
+            System.out.printf("%25s : %6.2f%n", topping.name().toUpperCase(), topping.price());
+        }
+    }
 }
 
 

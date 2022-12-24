@@ -12,44 +12,70 @@ class OrderItem {
         burger = new RegularBurger("Hamburger", 3.99);
     }
 
-    public OrderItem(SideItem sideItem, Drink drink){
-        burger = new DeluxeBurger("Deluxe burger",15.99);
-        addSideItem(sideItem);
-        addDrink(drink);
+    public OrderItem(String drinkName, String drinkSize, double drinkPrice, String sideName, String sideSize, double sidePrice){
+        burger = new DeluxeBurger("Deluxe burger",20.00);
+        addDrink(drinkName,drinkSize,drinkPrice);
+        addSideItem(sideName,sideSize,sidePrice);
     }
 
-    public OrderItem(Drink drink, SideItem sideItem){
-        burger = new Burger("Custom burger", 4.99);
-        addDrink(drink);
-        addSideItem(sideItem);
+    public OrderItem(String burgerName, String drinkName, String drinkSize, double drinkPrice, String sideName, String sideSize, double sidePrice){
+        burger = new Burger(burgerName, 4.99);
+        addDrink(drinkName,drinkSize,drinkPrice);
+        addSideItem(sideName,sideSize,sidePrice);
     }
 
     public void addToppingItem(Map<Integer,?> toppingList, int toppingsCounter){
         burger.addToppings(toppingList, toppingsCounter);
     }
 
-    public void addDrink(Drink drink){
-        this.drink = drink;
+    public void addDrink(String name, String size, double price){
+        this.drink = new Drink(name,price);
+        drink.setSize(size);
     }
 
-    public void addSideItem(SideItem sideItem){
-        this.sideItem = sideItem;
+    public void addSideItem(String name, String size, double price){
+        this.sideItem = new SideItem(name,price);
+        sideItem.setSize(size);
     }
 
-    public double getOrderTotal(){
-        return this.totalPrice += burger.calculateBurgerTotal() + drink.price() + sideItem.price();
+    public double getOrderTotal(String drinkSize, String sideSize){
+        if(burger instanceof DeluxeBurger){
+            return totalPrice = burger.getPrice();
+        }
+        else{
+            return totalPrice += burger.calculateBurgerTotal() + drink.getAdjustedPrice(drinkSize)
+                    + sideItem.getAdjustedPrice(sideSize);
+        }
     }
 
     public void showOrder(){
-        System.out.print("-".repeat(10));
-        System.out.print(" Your order ");
-        System.out.print("-".repeat(10));
-        System.out.printf("%nBurger: %s \t price: %.2f%n", burger.getName(), burger.getPrice());
-        System.out.println("Burger toppings: ");
-        for(Topping topping : burger.getToppings()){
-            System.out.printf("\t %s \t price: %.2f %n", topping.name(), topping.price());
+        System.out.print("*".repeat(15));
+        System.out.printf(" %s ","Your order".toUpperCase());
+        System.out.println("*".repeat(15));
+        System.out.printf("%25s : %6.2f%n%n",burger.getName().toUpperCase(), burger.getPrice());
+
+        if(burger instanceof DeluxeBurger){
+            burger.printToppings();
+            System.out.println();
+            System.out.printf("%17s %7s : %6.2f %n",sideItem.getName().toUpperCase(),
+                    sideItem.getSize().toUpperCase(),
+                    0.00);
+            System.out.printf("%17s %7s : %6.2f %n",drink.getName().toUpperCase(),
+                    drink.getSize().toUpperCase(),
+                    0.00);
         }
-        System.out.printf("Side item: %s \t price: %.2f %n",sideItem.name(),sideItem.price());
-        System.out.printf("Drink size: %s \t price: %.2f %n",drink.size(),drink.price());
+        else{
+            burger.printToppings();
+            System.out.println();
+            System.out.printf("%17s %7s : %6.2f %n",sideItem.getName().toUpperCase(),
+                    sideItem.getSize().toUpperCase(),
+                    sideItem.getAdjustedPrice(sideItem.getSize()));
+            System.out.printf("%17s %7s : %6.2f %n",drink.getName().toUpperCase(),
+                    drink.getSize().toUpperCase(),
+                    drink.getAdjustedPrice(drink.getSize()));
+        }
+        System.out.println("-".repeat(42));
+        System.out.printf("%25s : %6.2f%n","Total".toUpperCase(),getOrderTotal(drink.getSize(),sideItem.getSize()));
+        System.out.println("*".repeat(42));
     }
 }

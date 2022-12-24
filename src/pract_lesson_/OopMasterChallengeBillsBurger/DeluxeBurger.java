@@ -10,6 +10,13 @@ final class DeluxeBurger extends Burger{
 
     @Override
     public double calculateBurgerTotal() {
-        return getPrice();
+        return super.getPrice();
+    }
+
+    @Override
+    public void printToppings() {
+        for(Topping topping : getToppings()){
+            System.out.printf("%25s : %6.2f%n", topping.name().toUpperCase(),0.00);
+        }
     }
 }
