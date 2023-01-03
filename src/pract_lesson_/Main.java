@@ -1,7 +1,7 @@
 package pract_lesson_;
 
 
-import pract_lesson_.BillsBurgersChallengeExercise.MealOrderNew;
+import pract_lesson_.LinkedListChallenge.LinkedListChallenge;
 
 public class Main {
     public static void main(String[] args) {
@@ -154,19 +154,19 @@ public class Main {
 //        db.addHamburgerAddition3("Should not do this", 50.53);
 //        System.out.println("Total Deluxe Burger price is " + db.itemizeHamburger());
 
-        MealOrderNew regularMeal = new MealOrderNew();
-        regularMeal.addBurgerToppings("BACON","CHEESE","MAYO");
-        regularMeal.setDrinkSize("LARGE");
-        regularMeal.printItemizedList();
-        System.out.println("*".repeat(30));
-        MealOrderNew secondMeal = new MealOrderNew("turkey","7-up","chili");
-        secondMeal.addBurgerToppings("LETTUCE","CHEESE","MAYO");
-        secondMeal.printItemizedList();
-        System.out.println("*".repeat(30));
-        MealOrderNew deluxe = new MealOrderNew("deluxe","7-up","chili");
-        deluxe.addBurgerToppings("LETTUCE","CHEESE","MAYO","AVOCADO","BACON");
-        deluxe.setDrinkSize("SMALL");
-        deluxe.printItemizedList();
+//        MealOrderNew regularMeal = new MealOrderNew();
+//        regularMeal.addBurgerToppings("BACON","CHEESE","MAYO");
+//        regularMeal.setDrinkSize("LARGE");
+//        regularMeal.printItemizedList();
+//        System.out.println("*".repeat(30));
+//        MealOrderNew secondMeal = new MealOrderNew("turkey","7-up","chili");
+//        secondMeal.addBurgerToppings("LETTUCE","CHEESE","MAYO");
+//        secondMeal.printItemizedList();
+//        System.out.println("*".repeat(30));
+//        MealOrderNew deluxe = new MealOrderNew("deluxe","7-up","chili");
+//        deluxe.addBurgerToppings("LETTUCE","CHEESE","MAYO","AVOCADO","BACON");
+//        deluxe.setDrinkSize("SMALL");
+//        deluxe.printItemizedList();
 
 //        SortedArrayChallengeExercise sortedArrayChallengeExercise = new SortedArrayChallengeExercise();
 //        sortedArrayChallengeExercise.printArray(sortedArrayChallengeExercise.sortIntegers(sortedArrayChallengeExercise.getIntegers(5)));
@@ -277,6 +277,9 @@ public class Main {
 //        albums.get(1).addToPlayList(2, playList);
 //        albums.get(1).addToPlayList(24, playList);  // There is no track 24
 //        PlaylistMenu playlistMenu = new PlaylistMenu(playList);
+
+        LinkedListChallenge linkedListChallenge = new LinkedListChallenge();
+        linkedListChallenge.startJourney();
 
 //        MyLinkedList list = new MyLinkedList(null);
 //        String stringData = "Darwing Brisbane Perth Melbourne Canberra Adelaide Sydney Canberra";
