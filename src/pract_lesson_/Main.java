@@ -1,8 +1,6 @@
 package pract_lesson_;
 
 
-import pract_lesson_.LinkedListChallenge.LinkedListChallenge;
-
 public class Main {
     public static void main(String[] args) {
 //        LeapYearCalcExercise leapYear = new LeapYearCalcExercise();
@@ -193,6 +191,12 @@ public class Main {
 //        bank.listCustomers("Adelaide",true);
 //        bank.listCustomers("Sydney",true);
 
+//        BankNew bank = new BankNew("Citadele");
+//        bank.addCustomer("Ekaterina", 2000.00);
+//        bank.addTransaction("Ekaterina",-100.00);
+//        bank.addTransaction("Ekaterina",10.00);
+//        bank.printCustomerInfo("Ekaterina");
+
         //LinkedList playlist challenge exercise
 //        ArrayList<Album> albums = new ArrayList<>();
 //        Album album = new Album("Stormbringer", "Deep Purple");
@@ -278,8 +282,8 @@ public class Main {
 //        albums.get(1).addToPlayList(24, playList);  // There is no track 24
 //        PlaylistMenu playlistMenu = new PlaylistMenu(playList);
 
-        LinkedListChallenge linkedListChallenge = new LinkedListChallenge();
-        linkedListChallenge.startJourney();
+//        LinkedListChallenge linkedListChallenge = new LinkedListChallenge();
+//        linkedListChallenge.startJourney();
 
 //        MyLinkedList list = new MyLinkedList(null);
 //        String stringData = "Darwing Brisbane Perth Melbourne Canberra Adelaide Sydney Canberra";
