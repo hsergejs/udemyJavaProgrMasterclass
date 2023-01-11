@@ -17,7 +17,14 @@ public class Location2 {
         this.exits.put("Q", 0);
     }
 
-    public void addExit(String direction, int location){
+    public Location2(int locationID, String description, Map<String,Integer> exits) {
+        this.locationID = locationID;
+        this.description = description;
+        this.exits = exits;
+        this.exits.put("Q", 0);
+    }
+
+    protected void addExit(String direction, int location){ //protected to save immutability
         this.exits.put(direction, location);
     }
 
