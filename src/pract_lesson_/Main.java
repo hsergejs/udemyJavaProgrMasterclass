@@ -1,6 +1,9 @@
 package pract_lesson_;
 
 
+import pract_lesson_.Input_Output.Location2;
+import pract_lesson_.Input_Output.Locations2;
+
 public class Main {
     public static void main(String[] args) {
 //        LeapYearCalcExercise leapYear = new LeapYearCalcExercise();
@@ -533,6 +536,30 @@ public class Main {
 //        smartKitchen.setKitchenState(true,true,true);
 //        smartKitchen.doKitchenWork();
 
+//        EnumExample dayOfTheWeek = EnumExample.THURSDAY;
+//        System.out.println(dayOfTheWeek);
+//        for(int i=0; i<7;i++){
+//            dayOfTheWeek = dayOfTheWeek.getRandomDay();
+////            System.out.printf("Day of the week is: %s and it's ordinal value in enum is: %s%n", dayOfTheWeek.name(),
+////                    dayOfTheWeek.ordinal());
+////
+////            if(dayOfTheWeek == EnumExample.MONDAY){
+////                System.out.println("We hit MONDAY!");
+////            }
+//            dayOfTheWeek.switchForDayOfTheWeek(dayOfTheWeek);
+//        }
 
+//        ExceptionExample example = new ExceptionExample();
+//        try{
+//            System.out.println(example.divide());
+//        }
+//        catch(ArithmeticException | NoSuchElementException e){
+//            System.out.println(e.toString());
+//            System.out.println("Unable to proceed with calculations");
+//        }
+
+
+        Locations2 locations2 = new Locations2();
+        Location2.command(locations2);
     }
 }
