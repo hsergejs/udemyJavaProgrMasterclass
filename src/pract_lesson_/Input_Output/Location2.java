@@ -2,6 +2,7 @@ package pract_lesson_.Input_Output;
 
 //code taken from adventure game lecture challenge
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -10,17 +11,18 @@ public class Location2 {
     private final String description;
     private final Map<String, Integer> exits;
 
-    public Location2(int locationID, String description) {
-        this.locationID = locationID;
-        this.description = description;
-        this.exits = new HashMap<String, Integer>();
-        this.exits.put("Q", 0);
-    }
-
     public Location2(int locationID, String description, Map<String,Integer> exits) {
         this.locationID = locationID;
         this.description = description;
-        this.exits = exits;
+        //LinkedHashMap guarantee ordering of the keys
+        //checking on exits null allow to avoid code duplication and creating new constructor
+        if(exits != null){
+            this.exits = new LinkedHashMap<>(exits);
+        }
+        else{
+            this.exits = new LinkedHashMap<>();
+        }
+
         this.exits.put("Q", 0);
     }
 
@@ -38,7 +40,7 @@ public class Location2 {
 
     public Map<String, Integer> getExits() {
         //this way return a copy, so original data is not changed
-        return new HashMap<String, Integer>(exits);
+        return new LinkedHashMap<String, Integer>(exits);
     }
 
     public static void command(Map<Integer, Location2> locations){

@@ -1,9 +1,6 @@
 package pract_lesson_;
 
 
-import pract_lesson_.Input_Output.Location2;
-import pract_lesson_.Input_Output.Locations2;
-
 public class Main {
     public static void main(String[] args) {
 //        LeapYearCalcExercise leapYear = new LeapYearCalcExercise();
@@ -558,8 +555,10 @@ public class Main {
 //            System.out.println("Unable to proceed with calculations");
 //        }
 
+//        Locations2 locations2 = new Locations2();
+//        Location2.command(locations2);
 
-        Locations2 locations2 = new Locations2();
-        Location2.command(locations2);
+//        BufferedReaderWriterChallenge bufferedReaderWriterChallenge = new BufferedReaderWriterChallenge();
+//        Location2.command(bufferedReaderWriterChallenge);
     }
 }

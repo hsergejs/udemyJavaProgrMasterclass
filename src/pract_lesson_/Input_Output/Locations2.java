@@ -71,63 +71,101 @@ public class Locations2 implements Map<Integer,Location2> {
 //        locations.get(5).addExit("S", 1);
 //        locations.get(5).addExit("W", 2);
 
-        //old approach before java 7, without try with resources
-        //reading locations.txt
-        Scanner scanner = null;
-        try{
-            scanner = new Scanner(new FileReader("src/pract_lesson_/Input_Output/locations.txt"));
-            scanner.useDelimiter(", ");
-            while(scanner.hasNextLine()){
-                int locationInFile = scanner.nextInt();
-                scanner.skip(scanner.delimiter()); //skip delimiter which is ,_ not adding it to the description
-                String description = scanner.nextLine();
-                System.out.println("Imported location: " + locationInFile + "-" + description);
-                Map<String,Integer> tempExit = new HashMap<>(); //creating empty hashmap for exits
-                locations.put(locationInFile, new Location2(locationInFile,description,tempExit));
-            }
+//        //old approach before java 7, without try with resources
+//        //reading locations.txt
+//        Scanner scanner = null;
+//        try{
+//            scanner = new Scanner(new FileReader("src/pract_lesson_/Input_Output/locations_big.txt"));
+//            scanner.useDelimiter(",");
+//            while(scanner.hasNextLine()){
+//                int locationInFile = scanner.nextInt();
+//                scanner.skip(scanner.delimiter()); //skip delimiter which is ,_ not adding it to the description
+//                String description = scanner.nextLine();
+//                System.out.println("Imported location: " + locationInFile + "-" + description);
+//                Map<String,Integer> tempExit = new HashMap<>(); //creating empty hashmap for exits
+//                locations.put(locationInFile, new Location2(locationInFile,description,tempExit));
+//            }
+//        }
+//        catch(IOException e){
+//            e.printStackTrace();
+//        }
+//        finally{
+//            if(scanner != null){
+//                scanner.close(); //also close FileReader, so not adding additional code
+//            }
+//        }
+//
+//        //reading directions.txt
+//        //using bufferedreader, as it's more efficient, it will take approx 1 reading of the file, to get all data
+//        //from a file, placing all characters in to buffer and then manipulate it
+//        try{
+//            scanner = new Scanner(new BufferedReader(
+//                    new FileReader("src/pract_lesson_/Input_Output/directions_big.txt")));
+//            scanner.useDelimiter(",");
+//            while(scanner.hasNextLine()){
+////                int locationInFile = scanner.nextInt();
+////                scanner.skip(scanner.delimiter()); //skip first delimiter, which is ,_
+////                String directionInFile = scanner.next();
+////                scanner.skip(scanner.delimiter()); //skip second delimiter, which is ,_
+////                int destinationInFile = Integer.parseInt(scanner.nextLine());
+//                //more efficient way to read whole line in one go
+//                String input = scanner.nextLine();
+//                String [] data = input.split(",");
+//                int locationInFile = Integer.parseInt(data[0]);
+//                String directionInFile = data[1];
+//                int destinationInFile = Integer.parseInt(data[2]);
+//
+//                System.out.println("Imported exit: " + locationInFile + "-" + directionInFile
+//                        + "-" + destinationInFile);
+//
+//                Location2 location = locations.get(locationInFile);
+//                location.addExit(directionInFile,destinationInFile);
+//            }
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//        finally {
+//            if(scanner != null){
+//                scanner.close(); //also close FileReader, BufferedReader as it's implements Closeable interface
+//            }
+//        }
+
+        //try with resources approach, since static{} initialization block required
+        //no finally required, as closing is automatic
+        //since BufferedReader is used, we're not using Scanner, and it can be removed
+        try(BufferedReader locationsDir = new BufferedReader(
+                new FileReader("src/pract_lesson_/Input_Output/locations_big.txt"));
+            BufferedReader directionsDir = new BufferedReader(
+                    new FileReader("src/pract_lesson_/Input_Output/directions_big.txt"))
+        ){
+          String locationsLine,directionsLine;
+          while((locationsLine = locationsDir.readLine()) != null){
+              String [] locationsArray = locationsLine.split(",");
+              int locationInFile = Integer.parseInt(locationsArray[0]);
+              String descriptionInFile = locationsArray[1];
+
+              System.out.println("Imported location: " + locationInFile + "-" + descriptionInFile);
+
+              Map<String,Integer> tempExit = new HashMap<>(); //creating empty hashmap for exits
+              locations.put(locationInFile, new Location2(locationInFile,descriptionInFile,tempExit));
+          }
+
+          while((directionsLine = directionsDir.readLine()) != null){
+              String [] directionsArray = directionsLine.split(",");
+              int locationInFile = Integer.parseInt(directionsArray[0]);
+              String directionInFile = directionsArray[1];
+              int destinationInFile = Integer.parseInt(directionsArray[2]);
+
+              System.out.println("Imported exit: " + locationInFile + "-" + directionInFile
+                      + "-" + destinationInFile);
+
+              Location2 location = locations.get(locationInFile);
+              location.addExit(directionInFile,destinationInFile);
+          }
         }
         catch(IOException e){
             e.printStackTrace();
-        }
-        finally{
-            if(scanner != null){
-                scanner.close(); //also close FileReader, so not adding additional code
-            }
-        }
-
-        //reading directions.txt
-        //using bufferedreader, as it's more efficient, it will take approx 1 reading of the file, to get all data
-        //from a file, placing all characters in to buffer and then manipulate it
-        try{
-            scanner = new Scanner(new BufferedReader(
-                    new FileReader("src/pract_lesson_/Input_Output/directions.txt")));
-            scanner.useDelimiter(", ");
-            while(scanner.hasNextLine()){
-//                int locationInFile = scanner.nextInt();
-//                scanner.skip(scanner.delimiter()); //skip first delimiter, which is ,_
-//                String directionInFile = scanner.next();
-//                scanner.skip(scanner.delimiter()); //skip second delimiter, which is ,_
-//                int destinationInFile = Integer.parseInt(scanner.nextLine());
-                //more efficient way to read whole line in one go
-                String input = scanner.nextLine();
-                String [] data = input.split(", ");
-                int locationInFile = Integer.parseInt(data[0]);
-                String directionInFile = data[1];
-                int destinationInFile = Integer.parseInt(data[2]);
-
-                System.out.println("Imported exit: " + locationInFile + "-" + directionInFile
-                        + "-" + destinationInFile);
-                Location2 location = locations.get(locationInFile);
-                location.addExit(directionInFile,destinationInFile);
-            }
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        finally {
-            if(scanner != null){
-                scanner.close(); //also close FileReader as it's implements Closeable interface
-            }
         }
 
     }
