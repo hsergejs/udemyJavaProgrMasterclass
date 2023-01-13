@@ -21,7 +21,8 @@ public class BiteStreamExample implements Map<Integer,Location2> {
                 System.out.println("Writing location: " + location.getLocationID() + "-" +
                         location.getDescription());
                 System.out.println("Writing " + (location.getExits().size() -1) + " exits.");
-                locationFile.writeInt(location.getExits().size()-1); //???
+                locationFile.writeInt(location.getExits().size()-1); //??? writing to a file, to have var for loop
+                //when will be getting data from the binary file
                 for(String direction : location.getExits().keySet()){
                     if(!direction.equalsIgnoreCase("Q")){
                         System.out.println("\t\t " + direction + "," + location.getExits().get(direction));
@@ -34,40 +35,36 @@ public class BiteStreamExample implements Map<Integer,Location2> {
     }
 
     static{
-        try(BufferedReader locationsDir = new BufferedReader(
-                new FileReader("src/pract_lesson_/Input_Output/locations.txt"));
-            BufferedReader directionsDir = new BufferedReader(
-                    new FileReader("src/pract_lesson_/Input_Output/directions.txt"))
+        //reading data from a binary file with try with resources
+        try(DataInputStream locationFile = new DataInputStream(new BufferedInputStream(
+                new FileInputStream("src/pract_lesson_/Input_Output/locations.dat")))
         ){
-            String locationsLine,directionsLine;
-            while((locationsLine = locationsDir.readLine()) != null){
-                String [] locationsArray = locationsLine.split(", ");
-                int locationInFile = Integer.parseInt(locationsArray[0]);
-                String descriptionInFile = locationsArray[1];
-
-                System.out.println("Imported location: " + locationInFile + "-" + descriptionInFile);
-
-                Map<String,Integer> tempExit = new LinkedHashMap<>(); //creating empty hashmap for exits
-                locations.put(locationInFile, new Location2(locationInFile,descriptionInFile,tempExit));
+            boolean endOfFileFlag = false; //to catch exception when end of file is reached and terminate loop
+            try{
+                while(!endOfFileFlag){
+                    Map<String, Integer> exits = new LinkedHashMap<>();
+                    int locationId = locationFile.readInt(); //we need to know in prior sequence of primitives
+                    //in this example from writing a file and in prior data structure int,String and int,String,int
+                    String description = locationFile.readUTF();
+                    int numOfExits = locationFile.readInt();
+                    System.out.println("Location id: " + locationId + "-" + description);
+                    System.out.println("Number of exits: " + numOfExits);
+                    for(int i=0; i<numOfExits; i++){
+                        String direction = locationFile.readUTF();
+                        int destination = locationFile.readInt();
+                        exits.put(direction,destination);
+                        System.out.println("\t\t " + direction + "-" + destination);
+                    }
+                    locations.put(locationId, new Location2(locationId,description,exits));
+                }
             }
-
-            while((directionsLine = directionsDir.readLine()) != null){
-                String [] directionsArray = directionsLine.split(", ");
-                int locationInFile = Integer.parseInt(directionsArray[0]);
-                String directionInFile = directionsArray[1];
-                int destinationInFile = Integer.parseInt(directionsArray[2]);
-
-                System.out.println("Imported exit: " + locationInFile + "-" + directionInFile
-                        + "-" + destinationInFile);
-
-                Location2 location = locations.get(locationInFile);
-                location.addExit(directionInFile,destinationInFile);
+            catch(EOFException e){
+                endOfFileFlag = true;
             }
         }
         catch(IOException e){
             e.printStackTrace();
         }
-
     }
 
     @Override

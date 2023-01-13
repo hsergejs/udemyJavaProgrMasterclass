@@ -1,6 +1,9 @@
 package pract_lesson_;
 
 
+import pract_lesson_.Input_Output.BiteStreamExample;
+import pract_lesson_.Input_Output.Location2;
+
 public class Main {
     public static void main(String[] args) {
 //        LeapYearCalcExercise leapYear = new LeapYearCalcExercise();
@@ -560,5 +563,8 @@ public class Main {
 
 //        BufferedReaderWriterChallenge bufferedReaderWriterChallenge = new BufferedReaderWriterChallenge();
 //        Location2.command(bufferedReaderWriterChallenge);
+
+        BiteStreamExample biteStreamExample = new BiteStreamExample();
+        Location2.command(biteStreamExample);
     }
 }
