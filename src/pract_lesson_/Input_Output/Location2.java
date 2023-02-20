@@ -1,15 +1,23 @@
 package pract_lesson_.Input_Output;
 
 //code taken from adventure game lecture challenge
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Location2 {
+//after lecture on BiteStream to read/write primitives using stream, we implemented
+//Serializable interface to read/write Objects, and added *UID, which is highly recommended to implement
+//otherwise IDE will do it automatically, and it might bring compatibility issues
+// also if you Serializable required to using classes to implement Serializable interface
+// as well as part of composition, in this case LinkedHashMap have it by default
+public class Location2 implements Serializable {
     private final int locationID;
     private final String description;
     private final Map<String, Integer> exits;
+    private long serialVersionUID = 1l; //required to read written file
 
     public Location2(int locationID, String description, Map<String,Integer> exits) {
         this.locationID = locationID;
