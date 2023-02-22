@@ -11,6 +11,17 @@ public interface FlightEnabled {
     void land();
     void fly();
 
-    FlightStages transition(FlightStages stage);
+    //since jdk 8 default method introduced (or extension method), this allows to add method,
+    // and it won't affect previous code, if it's not overridden, if so it will print stated msg bellow
+    //it's a common practice to print not implemented interface on classes, or throw an exception
+    // as example we pass Enum type as a parameter, with implemented interface Trackable
+    default FlightStages transition(FlightStages stage) {
+//        System.out.println("transition method not implemented in next classes: " + getClass().getName());
+//        return null;
+        //implementation to meaning
+        FlightStages nextStage = stage.getNextStage();
+        System.out.println("Transitioning from " + stage + " to " + nextStage);
+        return nextStage;
+    }
 
 }
