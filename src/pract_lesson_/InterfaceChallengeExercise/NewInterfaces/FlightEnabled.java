@@ -18,9 +18,9 @@ public interface FlightEnabled {
     default FlightStages transition(FlightStages stage) {
 //        System.out.println("transition method not implemented in next classes: " + getClass().getName());
 //        return null;
-        //implementation to meaning
+
         FlightStages nextStage = stage.getNextStage();
-        System.out.println("Transitioning from " + stage + " to " + nextStage);
+        System.out.println("Transitioning from (in FlightEnabled) " + stage + " to " + nextStage);
         return nextStage;
     }
 
