@@ -293,6 +293,7 @@ public class Main {
 //        }
 //        list.traverse(list.getRoot());
 
+        //GenericsChallenge
 //        FootballPlayer footballPlayer = new FootballPlayer("Joe");
 //        BaseballPlayer baseballPlayer = new BaseballPlayer("Pat");
 //        SoccerPlayer soccerPlayer = new SoccerPlayer("Beckham");
